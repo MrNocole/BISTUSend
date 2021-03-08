@@ -1,23 +1,28 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.URL;
+import java.io.LineNumberReader;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/*
+    @author : zhanGTao
+    @version : 1.0
+ */
 //TODO 错误处理
 //testversion
 public class IPGetter{
-    public String getIP() throws SocketException{
-        // 扫描外网ip，如果没有配置则返回本地ip
+//    InetAddress LocalIp;
+    InetAddress OtherSideIp;
+    String LocalIp;
+    public IPGetter(){}
+    // 扫描外网ip，如果没有配置则返回本地ip
+    public void getIP() throws SocketException {
         String localIp = null;
         String netIp = null;
         Enumeration<NetworkInterface> networkInterfaceEnumeration
@@ -40,10 +45,13 @@ public class IPGetter{
                 }
             }
         }
-        if (netIp != null && !netIp.equals(""))return netIp;
-        else return localIp;
+        if (netIp != null && !netIp.equals(""))LocalIp = netIp;
+        else LocalIp = localIp;
     }
-        //返回实际ip
+
+    // 返回实际ip
+    // 暂时不用这个功能
+    /*
     public String getV4IP(){
         String ip = null;
         String chinaZ = "http://ip.chinaz.com";
@@ -62,7 +70,6 @@ public class IPGetter{
             }
 
         } catch (MalformedURLException e) {
-            System.out.println("URL created error !!!");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,4 +89,5 @@ public class IPGetter{
         }
         return ip;
     }
+    */
 }
